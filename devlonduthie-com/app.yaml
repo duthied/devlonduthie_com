@@ -10,3 +10,27 @@ handlers:
 - url: /(.*)
   static_files: www/\1
   upload: www/(.*)
+
+- url: /favicon\.ico
+  static_files: www/favicon.ico
+  upload: favicon\.ico
+
+- url: /android-chrome-192x192\.png
+  static_files: www/android-chrome-192x192.png
+  upload: android-chrome-192x192\.png
+
+- url: /android-chrome-512x512\.png
+  static_files: www/android-chrome-512x512.png
+  upload: android-chrome-512x512\.png
+
+- url: /apple-touch-icon\.png
+  static_files: www/apple-touch-icon.png
+  upload: apple-touch-icon\.png
+
+- url: /favicon-16x16\.png
+  static_files: www/favicon-16x16.png
+  upload: favicon-16x16\.png
+
+- url: /favicon-32x32\.png
+  static_files: www/favicon-32x32.png
+  upload: favicon-32x32\.png
