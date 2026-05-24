@@ -223,6 +223,24 @@ h1, h2, h3 {
   background: var(--bg);
 }
 .ipad-screen img { width: 100%; height: auto; }
+.iphone-frame {
+  position: absolute;
+  width: 32%;
+  bottom: -2rem;
+  right: 0;
+  z-index: 2;
+  border-radius: 3rem;
+  border: 1px solid var(--border);
+  background: rgba(40, 20, 8, 0.88);
+  padding: 0.55rem;
+  box-shadow: 0 24px 60px -16px rgba(60, 30, 10, 0.6);
+}
+.iphone-screen {
+  overflow: hidden;
+  border-radius: 2.5rem;
+  background: var(--bg);
+}
+.iphone-screen img { width: 100%; height: auto; display: block; }
 
 /* floating chips */
 .float-chip {
@@ -335,6 +353,13 @@ h1, h2, h3 {
   color: var(--muted-fg);
   line-height: 1.6;
 }
+.feature-card ul {
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+  color: var(--muted-fg);
+  line-height: 1.6;
+}
 
 /* ─── Quote ──────────────────────────────────────────────── */
 .quote-section { position: relative; z-index: 1; }
@@ -442,7 +467,7 @@ blockquote {
 .footer-inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 2rem 1.5rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -462,6 +487,7 @@ blockquote {
     padding-top: 2rem;
   }
   .hero-mockup { order: -1; }
+  .iphone-frame { width: 28%; bottom: -1.5rem; }
   .feature-grid { grid-template-columns: 1fr; }
   .cta-grid { grid-template-columns: 1fr; }
   .nav-links { display: none; }
@@ -478,3 +504,4 @@ blockquote {
 .hero-actions { animation: fadeUp 0.6s ease both; animation-delay: 0.35s; }
 .hero-rating  { animation: fadeUp 0.6s ease both; animation-delay: 0.42s; }
 .hero-mockup  { animation: fadeUp 0.8s ease both; animation-delay: 0.2s; }
+.iphone-frame { animation: fadeUp 0.8s ease both; animation-delay: 0.4s; }

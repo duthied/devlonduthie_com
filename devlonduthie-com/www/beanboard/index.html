@@ -71,6 +71,11 @@
               <img src="images/beanboard-app.png" alt="Beanboard iPad app — Bean Cellar view" />
             </div>
           </div>
+          <div class="iphone-frame">
+            <div class="iphone-screen">
+              <img src="images/iphone-board.png" alt="Beanboard iPhone app — Board view" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -92,6 +97,18 @@
             </div>
             <h3>The Bean Cellar</h3>
             <p>Track stock, roast dates, varietals, and cost per gram. Decrement bags as you brew.</p>
+            <ul>
+              <li>Name, roaster, origin, varietal, processing method, altitude</li>
+              <li><strong>Notes</strong> and free-form notes</li>
+              <li><strong>Roast level:</strong> Light, Medium, Medium Dark, Dark</li>
+              <li><strong>Bag size</strong> and current stock in grams</li>
+              <li><strong>Price paid</strong>, with automatic per-gram and per-ounce cost calculations</li>
+              <li>Source / shop name</li>
+              <li><strong>Status:</strong> In Stock or Empty</li>
+              <li>Date added</li>
+            </ul>
+            <p>Filter by roast level. Search by name or roaster. Sort by name, grams remaining, or average rating. Low-stock alert when a bean drops below a configurable threshold.</p>
+
           </div>
           <div class="feature-card">
             <div class="feature-icon">
@@ -101,7 +118,15 @@
               </svg>
             </div>
             <h3>Chart your inventory and consumption</h3>
-            <p>Monitor your stock, your streaks, and your style in the dashboard.</p>
+            <p>Monitor your stock, your streaks, and your style in the dashboard. Six analytics panels, each collapsible and freely reorderable:</p>
+            <ul>
+              <li><strong>Bean Stock</strong> — Roast-level breakdown, brews by roaster, cups remaining per bag</li>
+              <li><strong>Age</strong> — Beans sorted oldest to newest so nothing goes stale</li>
+              <li><strong>Cost &amp; Consumption</strong> — Today's spend, weekly spend, 14-day spend chart, all-time avg grams and cost per brew, total spent</li>
+              <li><strong>Quality</strong> — Rating distribution, rating trend over last 20 brews, top bean+method pairings by avg rating, roast profile</li>
+              <li><strong>Streaks &amp; Recency</strong> — Current and longest brew streak, last brew info, unique beans tried total and this month, most active day of week, top beans and methods</li>
+              <li><strong>Activity</strong> — 14-day brew frequency chart, day-of-week heatmap, time-of-day breakdown (morning / afternoon / evening)</li>
+            </ul>
           </div>
           <div class="feature-card">
             <div class="feature-icon">
@@ -110,7 +135,15 @@
               </svg>
             </div>
             <h3>Ask your shelf</h3>
-            <p>Chat with an assistant that knows your beans. "What should I brew?" has a real answer.</p>
+            <p>Chat with an assistant that knows your beans. "What should I brew?" has a real answer. A natural-language chat interface backed by the AI model of your choice:</p>
+            <ul>
+              <li><strong>Providers</strong> — Anthropic (Claude Opus, Sonnet, Haiku) or OpenAI (GPT-4o, GPT-4o-mini)</li>
+              <li><strong>Your key, your model</strong> — API key stored in the device Keychain — never sent to any Beanboard server</li>
+              <li><strong>Live data access</strong> — The assistant reads your real bean inventory and brew history in real time</li>
+              <li><strong>Actions</strong> — Check bean stock, surface brew stats, log a brew, add a new bean — all by conversation</li>
+              <li>Streaming responses with full message history persisted on-device</li>
+              <li>Switch provider or model any time in Settings</li>
+            </ul>
           </div>
         </div>
       </div>
