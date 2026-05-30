@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coming Soon — Top Banner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #faf6ed; --fg: #2c1a0e; --card: #fdfaf4;
+    --primary: #7c4a1e; --primary-fg: #fdfaf4;
+    --secondary: #ede3d0; --muted: #ede5d5; --muted-fg: #7a6248;
+    --accent: #c4883a; --border: #ddd0b8;
+    --ff-display: 'Fraunces', Georgia, serif;
+    --ff-sans: 'Inter', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--ff-sans);
+    background: #1e1e1e;
+    color: #eee;
+    padding: 2rem;
+  }
+  h1 { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 300; margin-bottom: 0.4rem; color: #fff; }
+  .lead { color: #aaa; font-size: 0.9rem; margin-bottom: 2rem; }
+
+  /* ── Page mockup ── */
+  .page-mockup {
+    background: var(--bg);
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid #444;
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .page-mockup::before {
+    content: '';
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0.2;
+    background-image: radial-gradient(rgba(90,55,20,0.1) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 0;
+  }
+
+  /* ── Top banner ── */
+  .top-banner {
+    background: var(--primary);
+    padding: 0.7rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    position: relative;
+    z-index: 1;
+  }
+  .top-banner-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+    box-shadow: 0 0 6px rgba(196,136,58,0.6);
+  }
+  .top-banner-text {
+    font-family: var(--ff-sans);
+    font-size: 0.78rem;
+    color: var(--primary-fg);
+    letter-spacing: 0.04em;
+  }
+  .top-banner-text strong {
+    font-weight: 600;
+  }
+  .top-banner-text em {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(253,250,244,0.8);
+    font-size: 0.82rem;
+  }
+
+  /* ── Nav ── */
+  .mini-nav {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    position: relative; z-index: 1;
+  }
+  .mini-nav-dot {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--primary); display: grid; place-items: center;
+  }
+  .mini-nav-dot svg { width: 12px; height: 12px; stroke: var(--primary-fg); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .mini-nav span { font-family: var(--ff-display); font-size: 1rem; font-weight: 600; color: var(--fg); }
+
+  /* ── Hero ── */
+  .mini-hero {
+    padding: 1.5rem 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2rem;
+    align-items: center;
+    position: relative; z-index: 1;
+  }
+  .mini-heading {
+    font-family: var(--ff-display);
+    font-size: 2.2rem; line-height: 0.95;
+    color: var(--fg);
+  }
+  .mini-heading em { font-style: italic; font-weight: 300; color: var(--primary); }
+  .mini-sub { margin-top: 0.75rem; font-size: 0.65rem; color: var(--muted-fg); line-height: 1.5; max-width: 18rem; }
+  .mini-btn {
+    margin-top: 1rem;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.45rem 0.9rem; border-radius: 999px;
+    background: var(--primary); color: var(--primary-fg);
+    font-size: 0.6rem; font-weight: 500;
+  }
+  .ipad-placeholder {
+    background: rgba(40,20,8,0.88);
+    border-radius: 1.2rem;
+    border: 1px solid var(--border);
+    padding: 0.5rem;
+    aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ipad-screen {
+    background: var(--secondary);
+    border-radius: 0.8rem;
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; color: var(--muted-fg); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* ── Variants ── */
+  .variants { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 2rem; max-width: 720px; margin-left: auto; margin-right: auto; }
+  .variant {
+    border-radius: 0.75rem;
+    border: 2px solid #444;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.18s, transform 0.18s;
+    background: #2a2a2a;
+  }
+  .variant:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .variant.selected { border-color: var(--accent); }
+
+  .variant-preview {
+    overflow: hidden;
+  }
+
+  /* Variant A: just text */
+  .v-a { background: var(--primary); padding: 0.6rem 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+  .v-a-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 5px rgba(196,136,58,0.5); }
+  .v-a-text { font-size: 0.6rem; color: var(--primary-fg); text-align: center; }
+  .v-a-text strong { font-weight: 600; }
+
+  /* Variant B: with divider/bar styling */
+  .v-b {
+    background: var(--primary);
+    padding: 0.6rem 1rem;
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    position: relative;
+  }
+  .v-b::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: var(--accent); opacity: 0.5;
+  }
+  .v-b-text { font-family: var(--ff-display); font-style: italic; font-size: 0.7rem; color: rgba(253,250,244,0.9); letter-spacing: 0.02em; }
+
+  /* Variant C: uppercase tight */
+  .v-c { background: var(--primary); padding: 0.6rem 1rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+  .v-c-sep { width: 1px; height: 10px; background: rgba(253,250,244,0.25); }
+  .v-c-text { font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(253,250,244,0.85); }
+  .v-c-accent { font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+
+  .variant-label { padding: 0.6rem 0.75rem; }
+  .variant-label h4 { font-size: 0.78rem; color: #ddd; font-family: var(--ff-sans); margin-bottom: 0.15rem; }
+  .variant-label p { font-size: 0.68rem; color: #888; line-height: 1.4; }
+
+  .note { text-align: center; font-size: 0.75rem; color: #666; margin-top: 1.5rem; max-width: 720px; margin-left: auto; margin-right: auto; }
+</style>
+</head>
+<body>
+
+<h1>Top-of-page banner — three tones</h1>
+<p class="lead">All three use the full-width primary brown at the very top. Here's how it looks in context, then three copy/tone options below.</p>
+
+<div class="page-mockup">
+  <!-- THE BANNER — prominent at very top -->
+  <div class="top-banner">
+    <div class="top-banner-dot"></div>
+    <div class="top-banner-text"><strong>Coming soon to the App Store</strong> &nbsp;·&nbsp; <em>Summer 2026</em></div>
+  </div>
+
+  <!-- Nav -->
+  <div class="mini-nav">
+    <div class="mini-nav-dot">
+      <svg viewBox="0 0 24 24"><path d="M4 10h13v4a5 5 0 01-5 5H9a5 5 0 01-5-5v-4Z"/><path d="M17 11h2a2 2 0 010 4h-2"/></svg>
+    </div>
+    <span>Beanboard</span>
+  </div>
+
+  <!-- Hero preview -->
+  <div class="mini-hero">
+    <div>
+      <div class="mini-heading">Your coffee bar<br/>in your <em>hand.</em></div>
+      <div class="mini-sub">Log every bag, dial in every shot, and chat with your inventory. Beanboard is the quiet companion for people who take their brew seriously.</div>
+      <div class="mini-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="8" height="8"><path d="M16.4 12.6c0-2.4 2-3.5 2.1-3.6-1.1-1.6-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.5 3 2.4 1.2-.1 1.6-.8 3.1-.8 1.4 0 1.8.8 3.1.7 1.3 0 2.1-1.2 2.9-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.6-1-2.6-3.7ZM14 4.8c.7-.8 1.1-1.9 1-3-1 0-2.2.6-2.9 1.4-.6.7-1.2 1.9-1 2.9 1.1.1 2.2-.5 2.9-1.3Z"/></svg>
+        Get on the App Store
+      </div>
+    </div>
+    <div class="ipad-placeholder">
+      <div class="ipad-screen">App screenshot</div>
+    </div>
+  </div>
+</div>
+
+<p style="color:#666; font-size:0.75rem; text-align:center; margin-top:0.75rem; max-width:720px; margin-left:auto; margin-right:auto;">↑ Position locked. Now pick the tone that feels right:</p>
+
+<div class="variants">
+
+  <div class="variant" data-choice="a" onclick="selectVariant(this)">
+    <div class="variant-preview">
+      <div class="v-a">
+        <div class="v-a-dot"></div>
+        <div class="v-a-text"><strong>Coming soon to the App Store</strong> &nbsp;·&nbsp; Summer 2026</div>
+      </div>
+    </div>
+    <div class="variant-label">
+      <h4>A — Direct &amp; dated</h4>
+      <p>States the fact clearly with a rough timeframe. No ambiguity.</p>
+    </div>
+  </div>
+
+  <div class="variant" data-choice="b" onclick="selectVariant(this)">
+    <div class="variant-preview">
+      <div class="v-b">
+        <div class="v-b-text">Coming soon to the App Store</div>
+      </div>
+    </div>
+    <div class="variant-label">
+      <h4>B — Serif italic, no date</h4>
+      <p>Warmer, slightly editorial. Matches the Fraunces heading personality.</p>
+    </div>
+  </div>
+
+  <div class="variant" data-choice="c" onclick="selectVariant(this)">
+    <div class="variant-preview">
+      <div class="v-c">
+        <div class="v-c-accent">Coming Soon</div>
+        <div class="v-c-sep"></div>
+        <div class="v-c-text">App Store &nbsp;·&nbsp; Summer 2026</div>
+      </div>
+    </div>
+    <div class="variant-label">
+      <h4>C — Eyebrow style</h4>
+      <p>Tight uppercase with accent color on the key phrase. Feels like a product launch badge.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="note">Click a variant to select, or just tell me in the terminal what you prefer.</p>
+
+<script>
+function selectVariant(el) {
+  document.querySelectorAll('.variant').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const choice = el.dataset.choice;
+  const label = el.querySelector('h4').textContent;
+  if (window.recordEvent) recordEvent(choice, label);
+}
+</script>
+</body>
+</html>

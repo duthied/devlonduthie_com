@@ -11,6 +11,10 @@ handlers:
   static_files: www/beanboard/index.html
   upload: www/beanboard/index.html
 
+- url: /beanboard/
+  static_files: www/beanboard/index.html
+  upload: www/beanboard/index.html
+
 - url: /(.*)
   static_files: www/\1
   upload: www/(.*)

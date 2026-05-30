@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coming Soon — Placement Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #faf6ed; --fg: #2c1a0e; --card: #fdfaf4;
+    --primary: #7c4a1e; --primary-fg: #fdfaf4;
+    --secondary: #ede3d0; --muted: #ede5d5; --muted-fg: #7a6248;
+    --accent: #c4883a; --border: #ddd0b8; --radius: 1rem;
+    --ff-display: 'Fraunces', Georgia, serif;
+    --ff-sans: 'Inter', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--ff-sans);
+    background: #1e1e1e;
+    color: #eee;
+    padding: 2rem;
+  }
+  h1 { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 300; margin-bottom: 0.4rem; color: #fff; }
+  .lead { color: #aaa; font-size: 0.9rem; margin-bottom: 2rem; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .card {
+    border-radius: 1rem;
+    border: 2px solid transparent;
+    background: #2a2a2a;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.18s, transform 0.18s;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card.selected { border-color: var(--accent); }
+
+  .preview {
+    background: var(--bg);
+    padding: 1.5rem 1.25rem;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  /* grain */
+  .preview::before {
+    content: '';
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0.25;
+    background-image: radial-gradient(rgba(90,55,20,0.1) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+
+  /* ── Shared mini-components ── */
+  .mini-nav {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-family: var(--ff-display); font-size: 0.8rem; color: var(--fg);
+    font-weight: 600; position: relative; z-index: 1;
+  }
+  .mini-nav-dot {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--primary); display: grid; place-items: center;
+  }
+  .mini-nav-dot svg { width: 10px; height: 10px; stroke: var(--primary-fg); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .mini-heading {
+    font-family: var(--ff-display);
+    font-size: 1.6rem; line-height: 1;
+    color: var(--fg); position: relative; z-index: 1;
+  }
+  .mini-heading em { font-style: italic; font-weight: 300; color: var(--primary); }
+  .mini-sub { font-size: 0.6rem; color: var(--muted-fg); max-width: 14rem; line-height: 1.4; position: relative; z-index: 1; }
+
+  .mini-btn {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.4rem 0.85rem; border-radius: 999px;
+    background: var(--primary); color: var(--primary-fg);
+    font-size: 0.6rem; font-weight: 500; position: relative; z-index: 1;
+    font-family: var(--ff-sans); width: fit-content;
+  }
+
+  /* ── Option A: Banner below nav ── */
+  .banner-strip {
+    background: var(--secondary);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    font-size: 0.6rem; color: var(--fg);
+    position: relative; z-index: 1;
+  }
+  .banner-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .banner-strip strong { font-weight: 600; }
+
+  /* ── Option B: Badge + disabled button ── */
+  .cs-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    border: 1px solid var(--border); background: var(--card);
+    border-radius: 999px; padding: 0.18rem 0.6rem;
+    font-size: 0.5rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--muted-fg); position: relative; z-index: 1; width: fit-content;
+  }
+  .mini-btn-disabled {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.4rem 0.85rem; border-radius: 999px;
+    background: var(--secondary); color: var(--muted-fg);
+    border: 1px solid var(--border);
+    font-size: 0.6rem; font-weight: 500; position: relative; z-index: 1;
+    font-family: var(--ff-sans); width: fit-content; cursor: default;
+  }
+  .cs-pill-next {
+    display: inline-flex; align-items: center;
+    padding: 0.2rem 0.55rem; border-radius: 999px;
+    background: rgba(196,136,58,0.18); color: var(--accent);
+    font-size: 0.48rem; font-weight: 500; letter-spacing: 0.08em;
+    position: relative; z-index: 1; width: fit-content;
+  }
+
+  /* ── Option C: Section band ── */
+  .cs-band {
+    margin: 0 -1.25rem;
+    background: var(--primary);
+    padding: 0.85rem 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    position: relative; z-index: 1;
+  }
+  .cs-band-text { flex: 1; }
+  .cs-band-eyebrow { font-size: 0.48rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(253,250,244,0.65); }
+  .cs-band-headline { font-family: var(--ff-display); font-size: 0.85rem; color: var(--primary-fg); line-height: 1.1; margin-top: 0.15rem; }
+  .mini-btn-outline {
+    display: inline-flex; align-items: center;
+    padding: 0.3rem 0.65rem; border-radius: 999px;
+    border: 1px solid rgba(253,250,244,0.35); color: var(--primary-fg);
+    font-size: 0.55rem; white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* ── Card labels ── */
+  .card-label {
+    padding: 1rem 1.25rem 1.25rem;
+    background: #2a2a2a;
+  }
+  .card-label h3 { font-size: 0.9rem; color: #eee; font-family: var(--ff-sans); margin-bottom: 0.25rem; }
+  .card-label p { font-size: 0.78rem; color: #888; line-height: 1.45; }
+
+  .letter-badge {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(0,0,0,0.12); color: var(--muted-fg);
+    font-size: 0.6rem; font-weight: 600; display: grid; place-items: center;
+    z-index: 2;
+  }
+
+  .selected-indicator {
+    display: none; position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff; border-radius: 999px;
+    padding: 0.5rem 1.5rem; font-size: 0.875rem; font-weight: 500;
+  }
+  .card.selected ~ .card ~ .card ~ * .selected-indicator,
+  body.has-selection .selected-indicator { display: block; }
+</style>
+</head>
+<body>
+<h1>Where should the "coming soon" live?</h1>
+<p class="lead">Three placement approaches — click to select your preference. You can change your mind anytime.</p>
+
+<div class="cards">
+
+  <!-- Option A: Announcement banner -->
+  <div class="card" data-choice="a" onclick="selectCard(this)">
+    <div class="preview">
+      <div class="letter-badge">A</div>
+      <div class="mini-nav">
+        <div class="mini-nav-dot">
+          <svg viewBox="0 0 24 24"><path d="M4 10h13v4a5 5 0 01-5 5H9a5 5 0 01-5-5v-4Z"/><path d="M17 11h2a2 2 0 010 4h-2"/></svg>
+        </div>
+        Beanboard
+      </div>
+      <div class="banner-strip">
+        <div class="banner-dot"></div>
+        <span><strong>Coming soon</strong> — Launching on the App Store this summer</span>
+      </div>
+      <div class="mini-heading">Your coffee bar<br/>in your <em>hand.</em></div>
+      <div class="mini-sub">Log every bag, dial in every shot, and chat with your inventory.</div>
+      <div class="mini-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="8" height="8"><path d="M16.4 12.6c0-2.4 2-3.5 2.1-3.6-1.1-1.6-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.5 3 2.4 1.2-.1 1.6-.8 3.1-.8 1.4 0 1.8.8 3.1.7 1.3 0 2.1-1.2 2.9-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.6-1-2.6-3.7ZM14 4.8c.7-.8 1.1-1.9 1-3-1 0-2.2.6-2.9 1.4-.6.7-1.2 1.9-1 2.9 1.1.1 2.2-.5 2.9-1.3Z"/></svg>
+        Get on the App Store
+      </div>
+    </div>
+    <div class="card-label">
+      <h3>A — Announcement banner</h3>
+      <p>A warm strip between the nav and hero. Visible immediately on scroll, reads naturally with the page, easy to remove later.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Badge + muted button -->
+  <div class="card" data-choice="b" onclick="selectCard(this)">
+    <div class="preview">
+      <div class="letter-badge">B</div>
+      <div class="mini-nav">
+        <div class="mini-nav-dot">
+          <svg viewBox="0 0 24 24"><path d="M4 10h13v4a5 5 0 01-5 5H9a5 5 0 01-5-5v-4Z"/><path d="M17 11h2a2 2 0 010 4h-2"/></svg>
+        </div>
+        Beanboard
+      </div>
+      <div class="cs-badge">
+        <div class="banner-dot"></div>
+        Coming soon to the App Store
+      </div>
+      <div class="mini-heading">Your coffee bar<br/>in your <em>hand.</em></div>
+      <div class="mini-sub">Log every bag, dial in every shot, and chat with your inventory.</div>
+      <div class="mini-btn-disabled">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="8" height="8"><path d="M16.4 12.6c0-2.4 2-3.5 2.1-3.6-1.1-1.6-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.5 3 2.4 1.2-.1 1.6-.8 3.1-.8 1.4 0 1.8.8 3.1.7 1.3 0 2.1-1.2 2.9-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.6-1-2.6-3.7ZM14 4.8c.7-.8 1.1-1.9 1-3-1 0-2.2.6-2.9 1.4-.6.7-1.2 1.9-1 2.9 1.1.1 2.2-.5 2.9-1.3Z"/></svg>
+        Coming soon
+      </div>
+      <div class="cs-pill-next">Available this summer</div>
+    </div>
+    <div class="card-label">
+      <h3>B — Hero badge + muted CTA</h3>
+      <p>A pill badge above the headline signals status upfront; the App Store button becomes "Coming soon" — sets expectations right where the CTA is.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Full-width warm band -->
+  <div class="card" data-choice="c" onclick="selectCard(this)">
+    <div class="preview">
+      <div class="letter-badge">C</div>
+      <div class="mini-nav">
+        <div class="mini-nav-dot">
+          <svg viewBox="0 0 24 24"><path d="M4 10h13v4a5 5 0 01-5 5H9a5 5 0 01-5-5v-4Z"/><path d="M17 11h2a2 2 0 010 4h-2"/></svg>
+        </div>
+        Beanboard
+      </div>
+      <div class="mini-heading">Your coffee bar<br/>in your <em>hand.</em></div>
+      <div class="mini-sub">Log every bag, dial in every shot, and chat with your inventory.</div>
+      <div class="mini-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="8" height="8"><path d="M16.4 12.6c0-2.4 2-3.5 2.1-3.6-1.1-1.6-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.6.9-.8 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.5 3 2.4 1.2-.1 1.6-.8 3.1-.8 1.4 0 1.8.8 3.1.7 1.3 0 2.1-1.2 2.9-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.6-1-2.6-3.7ZM14 4.8c.7-.8 1.1-1.9 1-3-1 0-2.2.6-2.9 1.4-.6.7-1.2 1.9-1 2.9 1.1.1 2.2-.5 2.9-1.3Z"/></svg>
+        Get on the App Store
+      </div>
+      <div class="cs-band">
+        <div class="cs-band-text">
+          <div class="cs-band-eyebrow">Launching soon</div>
+          <div class="cs-band-headline">Coming to the App Store</div>
+        </div>
+        <div class="mini-btn-outline">Notify me</div>
+      </div>
+    </div>
+    <div class="card-label">
+      <h3>C — Bold band after hero</h3>
+      <p>A rich-brown full-width section after the hero text, using the primary brand color. High contrast, impossible to miss. Option to add a "Notify me" email signup.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function selectCard(el) {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const choice = el.dataset.choice;
+  const label = el.querySelector('h3').textContent;
+  if (window.recordEvent) recordEvent(choice, label);
+}
+</script>
+</body>
+</html>
